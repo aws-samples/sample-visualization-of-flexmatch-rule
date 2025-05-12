@@ -1,0 +1,43 @@
+{
+  "name": "aliens_vs_cowboys",
+  "ruleLanguageVersion": "1.0",
+  "playerAttributes": [{
+    "name": "skill",
+    "type": "number",
+    "default": 10
+  }],
+  "teams": [{
+    "name": "cowboys",
+    "maxPlayers": 8,
+    "minPlayers": 4
+  }, {
+    "name": "aliens",
+    "maxPlayers": 8,
+    "minPlayers": 4
+  }],
+  "rules": [{
+    "name": "FairTeamSkill",
+    "description": "The average skill of players in each team is within 10 points from the average skill of all players in the match",
+    "type": "distance",
+    "measurements": [ "avg(teams[*].players.attributes[skill])" ],
+    "referenceValue": "avg(flatten(teams[*].players.attributes[skill]))",
+    "maxDistance": 10
+  }, {
+    "name": "EqualTeamSizes",
+    "description": "Only launch a game when the number of players in each team matches, e.g. 4v4, 5v5, 6v6, 7v7, 8v8",
+    "type": "comparison",
+    "measurements": [ "count(teams[cowboys].players)" ],
+    "referenceValue": "count(teams[aliens].players)",
+    "operation": "="
+  }],
+  "expansions": [{
+    "target": "rules[FairTeamSkill].maxDistance",
+    "steps": [{
+      "waitTimeSeconds": 5,
+      "value": 50
+    }, {
+      "waitTimeSeconds": 15,
+      "value": 100
+    }]
+  }]
+}
