@@ -5,7 +5,7 @@ export default defineConfig(({mode }) => {
   let base = "/"
 
   if (mode === "repo") {
-    base = "//sample-visualization-of-flexmatch-rule/"
+    base = "/sample-visualization-of-flexmatch-rule/"
   }
 
   return {
