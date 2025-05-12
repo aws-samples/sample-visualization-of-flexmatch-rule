@@ -1,0 +1,25 @@
+{
+    "name": "Player Block List",
+    "ruleLanguageVersion": "1.0",
+    "teams": [{
+        "maxPlayers": 5,
+        "minPlayers": 5,
+        "name": "red"
+    }, {
+        "maxPlayers": 5,
+        "minPlayers": 5,
+        "name": "blue"
+    }],
+    "playerAttributes": [{
+        "name": "BlockList",
+        "type": "string_list"
+    }],
+    "rules": [{
+        "name": "PlayerIdNotInBlockList",
+        "type": "collection",
+        "operation": "reference_intersection_count",
+        "measurements": "flatten(teams[*].players.attributes[BlockList])",
+        "referenceValue": "flatten(teams[*].players[playerId])",
+        "maxCount": 0
+    }]
+}

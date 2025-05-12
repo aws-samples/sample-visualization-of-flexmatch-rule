@@ -1,0 +1,67 @@
+{
+    "ruleLanguageVersion": "1.0",
+    "teams": [{
+        "name": "red",
+        "minPlayers": 10,
+        "maxPlayers": 20
+    }, {
+        "name": "blue",
+        "minPlayers": 10,
+        "maxPlayers": 20
+    }],
+    "algorithm": {
+        "strategy":"balanced",
+        "balancedAttribute": "skill",
+        "batchingPreference":"fastestRegion"
+    },
+    "playerAttributes": [{
+        "name": "league",
+        "type": "number"
+    },{
+        "name": "skill",
+        "type": "number"
+    },{
+        "name": "map",
+        "type": "string"
+    },{
+        "name": "mode",
+        "type": "string"
+    }],
+    "rules": [{
+        "name": "SimilarLeagueDistance",
+        "type": "distance",
+        "measurements": ["max(flatten(teams[*].players.attributes[league]))"],
+        "referenceValue": "min(flatten(teams[*].players.attributes[league]))",
+        "maxDistance": 2
+    }, {
+        "name": "SimilarSkillDistance",
+        "type": "distance",
+        "measurements": ["max(flatten(teams[*].players.attributes[skill]))"],
+        "referenceValue": "min(flatten(teams[*].players.attributes[skill]))",
+        "maxDistance": 10
+    }, {
+        "name": "SameMapComparison",
+        "type": "comparison",
+        "operation": "=",
+        "measurements": ["flatten(teams[*].players.attributes[map])"]
+    }, {
+        "name": "SameModeComparison",
+        "type": "comparison",
+        "operation": "=",
+        "measurements": ["flatten(teams[*].players.attributes[mode])"]
+    }, {
+        "name": "CompoundRuleMatchmaker",
+        "type": "compound",
+        "statement": "or(and(SameMapComparison, SameModeComparison), and(SimilarSkillDistance, SimilarLeagueDistance))"
+    }],
+    "expansions": [{
+        "target": "rules[SimilarSkillDistance].maxDistance",
+        "steps": [{
+            "waitTimeSeconds": 10,
+            "value": 20
+        }, {
+            "waitTimeSeconds": 20,
+            "value": 40
+        }]
+    }]
+}
