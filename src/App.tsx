@@ -14,13 +14,6 @@ import { useState } from "react";
 import CloudScapeEditor from "./visualizer/editor/CloudScapeEditor.tsx";
 import RepoExplanation from './components/repo/RepoExplanation';
 
-import { Theme, applyTheme } from '@cloudscape-design/components/theming';
-
-const theme: Theme = {...};
-
-const { reset } = applyTheme({ theme });
-// Use the reset method to remove the custom theme
-
 const LOCALE = 'en';
 
 function App() {
