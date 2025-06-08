@@ -1,4 +1,6 @@
 # FlexMatch Rule Visualizer: A tool to visualize Amazon GameLift FlexMatch matchmaking rules.
+[日本語版はこちら](./README-ja.md)
+
 This app simplifies the process of developing matchmaking mechanisms and accelerates development for developers, designers, and producers.
 
 ![Screenshot](./assets/screenshot.png "screenshot")
